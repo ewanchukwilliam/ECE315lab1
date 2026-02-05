@@ -51,14 +51,14 @@ endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "C:/Users/wewanchu/School/ECE315/lab1/ECE315lab1/lab1/ps7_cortexa9_0/freertos_ps7_cortexa9_0/bsp/include/../include")
+   "C:\Users\wewanchu\School\ECE315\lab1\ECE315lab1\lab1\ps7_cortexa9_0\freertos_ps7_cortexa9_0\bsp\include/../include")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-  file(INSTALL DESTINATION "C:/Users/wewanchu/School/ECE315/lab1/ECE315lab1/lab1/ps7_cortexa9_0/freertos_ps7_cortexa9_0/bsp/include/.." TYPE DIRECTORY MESSAGE_LAZY FILES "C:/Users/wewanchu/School/ECE315/lab1/ECE315lab1/lab1/ps7_cortexa9_0/freertos_ps7_cortexa9_0/bsp/libsrc/build_configs/gen_bsp/include")
+  file(INSTALL DESTINATION "C:\Users\wewanchu\School\ECE315\lab1\ECE315lab1\lab1\ps7_cortexa9_0\freertos_ps7_cortexa9_0\bsp\include/.." TYPE DIRECTORY MESSAGE_LAZY FILES "C:/Users/wewanchu/School/ECE315/lab1/ECE315lab1/lab1/ps7_cortexa9_0/freertos_ps7_cortexa9_0/bsp/libsrc/build_configs/gen_bsp/include")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
