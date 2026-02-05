@@ -153,6 +153,21 @@ void InitializeKeypad()
 	KYPD_loadKeyTable(&KYPDInst, (u8*) DEFAULT_KEYTABLE);
 }
 
+static void vRgbTask(void *pvParameters)
+{
+    const uint8_t color = RGB_CYAN;
+	const TickType_t xPeriod = 100;
+    TickType_t xDelay = xPeriod / 2;
+	xil_printf("\nxPeriod: %d\n", xPeriod);
+
+    while (1){
+        XGpio_DiscreteWrite(&rgbLedInst, RGB_CHANNEL, color);
+        vTaskDelay(xDelay);
+        XGpio_DiscreteWrite(&rgbLedInst, RGB_CHANNEL, 0);
+        vTaskDelay(xDelay);
+    }
+}
+
 // This function is hard coded to translate key value codes to their binary representation
 u32 SSD_decode(u8 key_value, u8 cathode)
 {
