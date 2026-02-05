@@ -1,0 +1,8 @@
+# 2026-02-05T14:21:44.403702100
+import vitis
+
+client = vitis.create_client()
+client.set_workspace(path="ECE315lab1")
+
+platform = client.create_platform_component(name = "lab1",hw_design = "$COMPONENT_LOCATION/../lab1_hw/ece315_lab1/lab1_hw_wrapper.xsa",os = "freertos",cpu = "ps7_cortexa9_0",domain_name = "freertos_ps7_cortexa9_0")
+

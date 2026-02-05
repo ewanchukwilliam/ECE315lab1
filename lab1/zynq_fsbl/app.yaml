@@ -1,0 +1,4 @@
+domain_path: C:\Users\wewanchu\School\ECE315\lab1\ECE315lab1\lab1\zynq_fsbl\zynq_fsbl_bsp
+app_src_dir: C:\Xilinx\Vitis\2024.2\data\embeddedsw\lib\sw_apps\zynq_fsbl
+template: zynq_fsbl
+lang: c
