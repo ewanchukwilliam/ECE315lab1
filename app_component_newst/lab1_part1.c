@@ -97,7 +97,7 @@ static void vKeypadTask( void *pvParameters )
 /*************************** Enter your code here ****************************/
 	// TODO: Define a constant of type TickType_t named 'xDelay' and initialize
 	//       it with a value of 100.
-	const TickType_t xDelay = pdMS_TO_TICKS(100);
+	const TickType_t xDelay = pdMS_TO_TICKS(1);
 /*****************************************************************************/
 
     xil_printf("Pmod KYPD app started. Press any key on the Keypad.\r\n");
@@ -180,7 +180,7 @@ u32 SSD_decode(u8 key_value, u8 cathode)
 
 	// cathode handles which display is active (left or right)
 	// by setting the MSB to 1 or 0
-    if(cathode==0){
+    if(cathode==1){
             return result;
     } else {
             return result | 0b10000000;

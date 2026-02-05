@@ -55,3 +55,23 @@ status = domain.set_config(option = "os", param = "freertos_tick_rate", value = 
 
 status = domain.regenerate()
 
+status = platform.build()
+
+status = platform.build()
+
+status = platform.build()
+
+status = platform.build()
+
+status = platform.build()
+
+comp.build()
+
+status = platform.build()
+
+comp.build()
+
+status = platform.build()
+
+comp.build()
+
