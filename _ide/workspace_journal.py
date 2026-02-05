@@ -75,3 +75,23 @@ status = platform.build()
 
 comp.build()
 
+comp = client.create_app_component(name="app_component_lab1_part2",platform = "$COMPONENT_LOCATION/../lab1/export/lab1/lab1.xpfm",domain = "freertos_ps7_cortexa9_0")
+
+comp = client.get_component(name="app_component_lab1_part2")
+status = comp.import_files(from_loc="", files=["C:\Users\wewanchu\School\ECE315\lab1\ECE315lab1\app_component_newst\lab1_part1.c"])
+
+status = platform.build()
+
+comp = client.get_component(name="app_component_lab1_part2")
+comp.build()
+
+status = platform.build()
+
+comp = client.get_component(name="app_component_newst")
+comp.build()
+
+status = platform.build()
+
+comp = client.get_component(name="app_component_lab1_part2")
+comp.build()
+

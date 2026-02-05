@@ -35,7 +35,7 @@
 
 // Other miscellaneous libraries
 #include "pmodkypd.h"
-
+#include "rgb_led.h"
 // Device ID declarations
 #define KYPD_DEVICE_ID   	XPAR_GPIO_KYPD_BASEADDR
 /*************************** Enter your code here ****************************/
@@ -50,6 +50,7 @@ PmodKYPD 	KYPDInst;
 /*************************** Enter your code here ****************************/
 // TODO: Declare the seven-segment display peripheral here.
 XGpio SSDInst;
+
 /*****************************************************************************/
 
 // Function prototypes

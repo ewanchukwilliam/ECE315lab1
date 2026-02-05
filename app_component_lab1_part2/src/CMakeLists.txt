@@ -4,24 +4,12 @@ cmake_minimum_required(VERSION 3.16)
 
 include(${CMAKE_SOURCE_DIR}/Empty_applicationExample.cmake)
 include(${CMAKE_CURRENT_SOURCE_DIR}/UserConfig.cmake)
-set(APP_NAME app_component_newst)
+set(APP_NAME app_component_lab1_part2)
 project(${APP_NAME})
 
 find_package(common)
 enable_language(C ASM CXX)
 collect(PROJECT_LIB_DEPS xilstandalone;xiltimer;freertos)
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
