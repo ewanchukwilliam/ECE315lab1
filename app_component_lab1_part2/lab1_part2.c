@@ -40,6 +40,8 @@
 #define KYPD_DEVICE_ID   	XPAR_GPIO_KYPD_BASEADDR
 /*************************** Enter your code here ****************************/
 #define SSD_DEVICE_ID   XPAR_GPIO_SSD_BASEADDR
+#define RGB_LED_DEVICE_ID   XPAR_RGB_LED_BASEADDR
+#define BUTTONS_DEVICE_ID   XPAR_GPIO_BUTTONS_BASEADDR
 /*****************************************************************************/
 
 // keypad key table
@@ -50,6 +52,8 @@ PmodKYPD 	KYPDInst;
 /*************************** Enter your code here ****************************/
 // TODO: Declare the seven-segment display peripheral here.
 XGpio SSDInst;
+XGpio rgbLedInst;
+XGpio buttonsInst;
 
 /*****************************************************************************/
 
@@ -57,6 +61,7 @@ XGpio SSDInst;
 
 void InitializeKeypad();
 static void vKeypadTask( void *pvParameters );
+static void vRgbTask( void *pvParameters );
 u32 SSD_decode(u8 key_value, u8 cathode);
 
 
@@ -71,12 +76,25 @@ int main(void)
 	// TODO: Initialize SSD and set the GPIO direction to output.
 	status = XGpio_Initialize(&SSDInst, SSD_DEVICE_ID);
 	XGpio_SetDataDirection(&SSDInst, 1, 0x00);
+	
+	status = XGpio_Initialize(&rgbLedInst, RGB_LED_DEVICE_ID);
+	XGpio_SetDataDirection(&rgbLedInst, RGB_CHANNEL, 0x00);
+	
+	status = XGpio_Initialize(&buttonsInst, BUTTONS_DEVICE_ID);
+	XGpio_SetDataDirection(&buttonsInst, 1, 0xFF);
 /*****************************************************************************/
 
 	xil_printf("Initialization Complete, System Ready!\n");
 
 	xTaskCreate(vKeypadTask,					/* The function that implements the task. */
 				"main task", 				/* Text name for the task, provided to assist debugging only. */
+				configMINIMAL_STACK_SIZE, 	/* The stack allocated to the task. */
+				NULL, 						/* The task parameter is not used, so set to NULL. */
+				tskIDLE_PRIORITY,			/* The task runs at the idle priority. */
+				NULL);
+
+	xTaskCreate(vRgbTask,					/* The function that implements the task. */
+				"RGB task", 				/* Text name for the task, provided to assist debugging only. */
 				configMINIMAL_STACK_SIZE, 	/* The stack allocated to the task. */
 				NULL, 						/* The task parameter is not used, so set to NULL. */
 				tskIDLE_PRIORITY,			/* The task runs at the idle priority. */
@@ -156,11 +174,35 @@ void InitializeKeypad()
 static void vRgbTask(void *pvParameters)
 {
     const uint8_t color = RGB_CYAN;
-	const TickType_t xPeriod = 100;
-    TickType_t xDelay = xPeriod / 2;
+	TickType_t xPeriod = 100;
+    TickType_t xDelay;
+	u32 button_value;
+	u32 previous_button_value = 0;
 	xil_printf("\nxPeriod: %d\n", xPeriod);
 
     while (1){
+		button_value = XGpio_DiscreteRead(&buttonsInst, 1);
+		
+		if (button_value != previous_button_value && button_value != 0) {
+			if (button_value == 8) {
+				xPeriod += 10;
+				xil_printf("xPeriod: %d\n", xPeriod);
+			}
+			else if (button_value == 1) {
+				xPeriod -= 10;
+				if (xPeriod < 10) {
+					xPeriod = 10;
+				}
+				xil_printf("xPeriod: %d\n", xPeriod);
+			}
+			
+			vTaskDelay(pdMS_TO_TICKS(200));
+		}
+		
+		previous_button_value = button_value;
+		
+		xDelay = xPeriod / 2;
+		
         XGpio_DiscreteWrite(&rgbLedInst, RGB_CHANNEL, color);
         vTaskDelay(xDelay);
         XGpio_DiscreteWrite(&rgbLedInst, RGB_CHANNEL, 0);
